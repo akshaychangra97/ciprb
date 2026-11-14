@@ -235,12 +235,6 @@ dialog{width:min(540px,calc(100% - 32px));max-height:85vh;border:1px solid var(-
     background: linear-gradient(180deg, #09192ded, #0b1d32d9 54%, #10294482);
   }
 }
-.focus-card:nth-child(4) .symbol {background:#f8e3de;color:#923d30}
-.focus-card:nth-child(5) .symbol {background:#edf1d8;color:#4c6121}
-.focus-card:nth-child(6) .symbol {background:#f2e1ea;color:#8b3f64}
-.focus-card:nth-child(7) .symbol {background:#ece5f6;color:#674285}
-.focus-card:nth-child(8) .symbol {background:#dcefeb;color:#216b5f}
-.focus-card:nth-child(9) .symbol {background:#f7ebd8;color:#7d571c}
 
 /* Keep both headline parts on the same scale and the rotating line stable. */
 .hero .hero-copy h1 {
@@ -345,108 +339,216 @@ html {
 
 body:has(dialog[open]) .viewport-blur { opacity: 0; }
 
+.focus-section {
+  color: #0a2340;
+  background:
+    radial-gradient(ellipse 32% 14% at 4% 101%, #fff0da 0%, transparent 100%),
+    radial-gradient(ellipse 28% 18% at 100% 1%, #fff4e4 0%, transparent 100%),
+    #fcfcfb;
+}
 .focus-section .section-head {
-  align-items: end;
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: clamp(20px, 2.8vw, 48px);
+  margin-bottom: clamp(26px, 3vw, 50px);
+  padding-bottom: 0;
+  border: 0;
+}
+.focus-section h2 {
+  position: relative;
+  font-size: clamp(36px, 3.75vw, 64px);
+  letter-spacing: -.045em;
+  line-height: 1.05;
+}
+.focus-section h2::before {
+  position: absolute;
+  top: -20px;
+  left: 0;
+  width: 59px;
+  height: 5px;
+  border-radius: 4px;
+  background: #f6a400;
+  content: "";
 }
 .focus-section .section-head p {
-  max-width: 370px;
-  line-height: 1.55;
+  max-width: 580px;
+  padding-inline-start: clamp(18px, 2.8vw, 48px);
+  border-inline-start: 1px solid #a4b0bd;
+  color: #334860;
+  font-size: clamp(14px, 1.1vw, 18px);
+  line-height: 1.5;
 }
+.focus-section .focus-all {
+  border: 1px solid #eba100;
+  border-radius: 17px;
+  background: #fff;
+  color: #0a2340;
+  white-space: nowrap;
+}
+.focus-section .focus-all:hover {background: #fff4d8}
+
 .focus-grid {
   display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: clamp(14px, 1.6vw, 22px);
+  gap: clamp(14px, 1.45vw, 24px);
 }
+.focus-grid + .focus-grid {margin-top: clamp(20px, 1.9vw, 32px)}
+.focus-grid--lead {grid-template-columns: minmax(0, 2.44fr) repeat(3, minmax(0, 1fr))}
+.focus-grid--topics {grid-template-columns: repeat(4, minmax(0, 1fr))}
 .focus-card {
-  position: relative;
-  isolation: isolate;
+  --badge-bg: #daebfb;
+  --badge-ink: #06469c;
   display: flex;
+  flex-direction: column;
   min-width: 0;
   overflow: hidden;
-  background: #132b42;
+  border: 1px solid #e2e6ea;
   border-radius: 15px;
-  color: #fff;
+  background: #fff;
+  box-shadow: 0 3px 7px #132b4010;
 }
-.focus-image,
-.focus-card::after {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-}
-.focus-image {z-index: -2; overflow: hidden}
-.focus-card::after {
-  z-index: -1;
-  content: "";
-  background: linear-gradient(180deg, #0a1c3070, #0a1c304d 23%, #0a1c30db 58%, #0a1c30 100%);
+.focus-image {
+  height: clamp(105px, 7.5vw, 126px);
+  overflow: hidden;
 }
 .focus-image img {
-  display: block;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 42%;
 }
-.focus-image img[src$="/swimsafe.webp"] {
-  transform: scale(1.65);
-  transform-origin: 50% 45%;
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .focus-image img {transition: transform 320ms ease}
+  .focus-card:hover .focus-image img {transform: scale(1.05)}
 }
-.focus-image img[src$="/anchal.webp"] {
-  transform: scale(1.28);
-  transform-origin: 50% 70%;
-}
-.focus-image img[src$="/road.webp"] {object-position: center 30%}
+.focus-grid--topics .focus-image {height: clamp(130px, 9.25vw, 155px)}
+.focus-card--maternal .focus-image img {object-position: center 32%}
+.focus-card--road .focus-image img {object-position: center 15%}
+.focus-card--burn .focus-image img {object-position: center 25%}
+.focus-card--nutrition .focus-image img {object-position: center 30%}
+.focus-card--ncd .focus-image img {object-position: center 37%}
+.focus-card--mental .focus-image img {object-position: center 34%}
+.focus-card--access .focus-image img {object-position: center 31%}
 .focus-body {
+  position: relative;
   display: flex;
   flex: 1;
   flex-direction: column;
   align-items: flex-start;
   min-width: 0;
-  min-height: 294px;
-  padding: clamp(15px, 1.6vw, 22px);
+  padding: 24px clamp(14px, 1.35vw, 24px) 13px;
 }
 .focus-body .symbol {
-  flex: none;
-  width: 38px;
-  height: 38px;
-  margin: 0 0 46px;
-  border-radius: 9px;
-  box-shadow: 0 2px 10px #07172940;
+  position: absolute;
+  top: -28px;
+  width: 46px;
+  height: 46px;
+  margin: 0;
+  border-radius: 15px;
+  background: var(--badge-bg);
+  color: var(--badge-ink);
 }
-.focus-body .symbol svg {width: 20px;height: 20px}
-.focus-card:nth-child(2) .symbol {background: #f8e8d0}
-.focus-card:nth-child(3) .symbol {background: #e5eee7}
-.focus-copy {margin-top: auto}
+.focus-body .symbol svg {width: 26px;height: 26px}
+.focus-card--maternal {--badge-bg:#fce6ec;--badge-ink:#a82b50}
+.focus-card--road {--badge-bg:#e5f4fb;--badge-ink:#1671ab}
+.focus-card--burn {--badge-bg:#ffebe2;--badge-ink:#bd401e}
+.focus-card--nutrition {--badge-bg:#f1f7de;--badge-ink:#547313}
+.focus-card--ncd {--badge-bg:#f7e5ef;--badge-ink:#943461}
+.focus-card--mental {--badge-bg:#efe8fc;--badge-ink:#653bb0}
+.focus-card--access {--badge-bg:#ddf3eb;--badge-ink:#147467}
+.focus-card--tropical {--badge-bg:#f7ebd8;--badge-ink:#7d571c}
 .focus-copy h3 {
-  margin: 0 0 7px;
-  font-size: clamp(18px, 1.55vw, 22px);
-  line-height: 1.2;
+  margin: 0 0 5px;
+  font-size: clamp(18px, 1.26vw, 22px);
+  line-height: 1.15;
   letter-spacing: -.025em;
 }
+.focus-grid--topics h3 {font-size: clamp(20px, 1.48vw, 25px)}
 .focus-copy p {
   margin: 0;
-  color: #e4eef9;
-  font-size: 14px;
-  line-height: 1.5;
+  color: #334860;
+  font-size: clamp(14px, .96vw, 16px);
+  line-height: 1.34;
 }
 .focus-card .focus-cta {
   min-height: 44px;
   max-width: 100%;
-  margin-top: 14px;
-  padding: 8px 11px;
-  border: 1px solid #a7c2df80;
-  border-radius: 8px;
-  background: #152f48;
-  color: white;
+  margin-top: auto;
+  padding: 5px 0;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: #06469c;
+  text-align: left;
   white-space: normal;
-  line-height: 1.3;
-  transition: background-color .2s ease, border-color .2s ease;
+  line-height: 1.25;
 }
-.focus-card .focus-cta:hover {background: #26537a;border-color: #c4e3ff}
 .focus-cta .arrow {flex: none}
-@media (max-width: 1020px) {
-  .focus-grid {grid-template-columns: repeat(2, minmax(0, 1fr))}
+.focus-card--drowning,
+.focus-card--tropical {
+  display: grid;
+  grid-template-columns: 49% minmax(0, 1fr);
 }
-@media (max-width: 560px) {
-  .focus-grid {grid-template-columns: 1fr}
-  .focus-body {min-height: 253px}
+.focus-card--drowning {
+  min-height: clamp(265px, 18.6vw, 312px);
+  border-color: #cde1f3;
+  background: linear-gradient(140deg, #f1f8fe, #e5f1fc);
+  box-shadow: none;
+}
+.focus-card--drowning .focus-image {
+  height: auto;
+  clip-path: ellipse(100% 84% at 0% 50%);
+}
+.focus-card--drowning .focus-image img {object-position: 55% center}
+.focus-card--drowning .focus-body,
+.focus-card--tropical .focus-body {justify-content: center;padding: 24px}
+.focus-card--drowning .symbol,
+.focus-card--tropical .symbol {
+  position: static;
+  margin-bottom: 10px;
+}
+.focus-card--drowning .symbol {width: 54px;height: 54px}
+.focus-card--drowning h3 {margin-bottom: 12px;font-size: clamp(22px, 1.7vw, 29px)}
+.focus-card--drowning .focus-cta {
+  margin-top: clamp(15px, 1.8vw, 30px);
+  padding: 10px clamp(12px, 1.2vw, 20px);
+  border-radius: 15px;
+  background: #ffcf53;
+  color: #0a2340;
+}
+.focus-card--drowning .focus-cta:hover {background: #f7bd31}
+.focus-card--tropical {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
+}
+.focus-card--tropical .focus-image {height: 100%;max-height: 182px}
+.focus-card--tropical .focus-image img {object-position: center 38%}
+
+@media (max-width: 1180px) {
+  .focus-grid--lead {grid-template-columns: repeat(3, minmax(0, 1fr))}
+  .focus-card--drowning {grid-column: 1 / -1}
+  .focus-card--drowning .focus-image {height: 290px}
+  .focus-card--drowning .focus-image img {object-position: center 52%}
+  .focus-section .section-head {grid-template-columns: minmax(0, 1fr) auto;column-gap: 20px;row-gap: 12px}
+  .focus-section .section-head p {grid-row: 2;border: 0;padding: 0}
+  .focus-section .focus-all {grid-column: 2;grid-row: 1 / 3}
+}
+@media (max-width: 800px) {
+  .focus-grid--topics {grid-template-columns: repeat(2, minmax(0, 1fr))}
+  .focus-card--tropical {grid-template-columns: minmax(0, 2fr) minmax(0, 3fr)}
+}
+@media (max-width: 640px) {
+  .focus-section .section-head {grid-template-columns: 1fr;justify-items: start;padding-top: 12px}
+  .focus-section .focus-all {grid-area: auto}
+  .focus-grid--lead {grid-template-columns: repeat(2, minmax(0, 1fr))}
+  .focus-card--drowning .focus-image {height: auto}
+}
+@media (max-width: 480px) {
+  .focus-grid--lead,
+  .focus-grid--topics,
+  .focus-card--drowning,
+  .focus-card--tropical {grid-template-columns: minmax(0, 1fr)}
+  .focus-card--drowning .focus-image {height: 220px;clip-path: none}
+  .focus-card--drowning .focus-body,
+  .focus-card--tropical .focus-body {padding: 20px}
+  .focus-card .focus-image {min-height: 150px}
+  .focus-card--tropical .focus-image {height: 150px}
 }
