@@ -101,58 +101,6 @@ for (const logo of document.querySelectorAll('.partner-mark')) {
 }
 
 
-const hoverCards = matchMedia('(hover: hover) and (min-width: 871px)');
-let activeFocus;
-function closeFocus() {
-  if (!activeFocus) return;
-  activeFocus.setAttribute('aria-expanded', 'false');
-  const panel = document.getElementById(activeFocus.getAttribute('aria-controls'));
-  panel.inert = true;
-  panel.hidden = true;
-  activeFocus = undefined;
-}
-function openFocus(button) {
-  if (activeFocus === button) return;
-  closeFocus();
-  activeFocus = button;
-  button.setAttribute('aria-expanded', 'true');
-  const panel = document.getElementById(button.getAttribute('aria-controls'));
-  panel.hidden = false;
-  panel.inert = false;
-}
-const focusGrid = document.querySelector('.research-grid');
-for (const button of focusGrid.querySelectorAll('.focus-toggle')) {
-  const card = button.closest('.focus-card');
-  card.addEventListener('pointerenter', event => {
-    if (hoverCards.matches && event.pointerType === 'mouse') openFocus(button);
-  });
-  card.addEventListener('pointerleave', event => {
-    if (hoverCards.matches && event.pointerType === 'mouse' &&
-        activeFocus === button && !card.querySelector('.focus-preview').contains(document.activeElement)) closeFocus();
-  });
-  card.addEventListener('focusout', event => {
-    if (activeFocus === button && !card.contains(event.relatedTarget) &&
-        !card.matches(':hover')) closeFocus();
-  });
-  button.addEventListener('click', () => {
-    if (activeFocus === button) {
-      closeFocus();
-    } else {
-      openFocus(button);
-    }
-  });
-}
-document.addEventListener('click', event => {
-  if (!focusGrid.contains(event.target)) closeFocus();
-});
-document.addEventListener('keydown', event => {
-  if (event.key === 'Escape' && activeFocus) {
-    const button = activeFocus;
-    if (focusGrid.contains(document.activeElement)) button.focus();
-    closeFocus();
-  }
-});
-
 const heroWord = document.querySelector('#hero-word');
 const motion = matchMedia('(prefers-reduced-motion: reduce)');
 const phrases = ['safer childhoods.', 'safer roads.', 'better care.'];
